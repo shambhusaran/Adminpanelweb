@@ -18,7 +18,6 @@ class NavigationBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children:<Widget>[
           Container(
-
            // color: Colors.redAccent,
             child: Row(
            children: [
