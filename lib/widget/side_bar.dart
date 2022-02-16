@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:web_admin_panel/model/order_objects.dart';
+import 'package:web_admin_panel/Providers/order_list_provider.dart';
 
 class SideBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        //color: Colors.blue,
+      decoration: const BoxDecoration(
+        color: Colors.white,
       ),
       // child: Text("Hiiiiiii"),
         child: Column(
@@ -26,23 +28,37 @@ class SideBar extends StatelessWidget {
 
               ),
               const BrownBar(title: "APPETIZER"),
-              Buttons(itemname: "Cheese Burgers", quantity: "8"),
-              Buttons(itemname: "French Fries", quantity: "3"),
-              SizedBox(height: 10,),
-              BrownBar(title: "DESSERTS"),
-              Buttons(itemname: "Black Forest", quantity: "2"),
-              Buttons(itemname: "Apple Pie", quantity: "4"),
-              SizedBox(height: 10,),
-              BrownBar(title: "MO:MO"),
-              Buttons(itemname: "Chicken Mo:Mo", quantity: "3"),
-              Buttons(itemname: "Buff Mo:Mo", quantity: "2"),
-              SizedBox(height: 10,),
-              BrownBar(title: "SNACKS"),
-              Buttons(itemname: "Buff Chilly", quantity: "8"),
-              Buttons(itemname: "Mixed Pizza", quantity: "5"),
-              Buttons(itemname: "Cheese Ball", quantity: "4"),
-              Buttons(itemname: "Corn Dog", quantity: "1"),
-              SizedBox(height: 10,),
+              Column(
+                children: getAppetizer(),
+              ),
+              // Buttons(itemname: "Cheese Burgers", quantity: "8"),
+              // Buttons(itemname: "French Fries", quantity: "3"),
+              const SizedBox(height: 10,),
+              const BrownBar(title: "DESSERTS"),
+              Column(
+                children: getDeserts(),
+              ),
+              // Buttons(itemname: "Black Forest", quantity: "2"),
+              // Buttons(itemname: "Apple Pie", quantity: "4"),
+              const SizedBox(height: 10,),
+              const BrownBar(title: "MO:MO"),
+              Column(
+                children: getmomo(),
+              ),
+
+              // Buttons(itemname: "Chicken Mo:Mo", quantity: "3"),
+              // Buttons(itemname: "Buff Mo:Mo", quantity: "2"),
+              const SizedBox(height: 10,),
+              const BrownBar(title: "SNACKS"),
+              Column(
+                children: getSnacks()
+                ,
+              ),
+              // Buttons(itemname: "Buff Chilly", quantity: "8"),
+              // Buttons(itemname: "Mixed Pizza", quantity: "5"),
+              // Buttons(itemname: "Cheese Ball", quantity: "4"),
+              // Buttons(itemname: "Corn Dog", quantity: "1"),
+              const SizedBox(height: 10,),
 
 
             ]
@@ -93,6 +109,39 @@ class Buttons extends StatelessWidget {
       ),
     );
   }
+}
+
+List<Widget> getAppetizer(){
+  List<Widget> appetizer = [];
+  OrderListProvider(). calculateItemAndNumbers(type: "Appetizer")!.forEach((key, value){
+     appetizer.add(Buttons(itemname: key, quantity: value.toString()));});
+
+   return appetizer;
+
+}
+List<Widget> getDeserts(){
+  List<Widget> deserts = [];
+  OrderListProvider().calculateItemAndNumbers(type: "Desserts")!.forEach((key, value){
+    deserts.add(Buttons(itemname: key, quantity: value.toString()));});
+
+  return deserts;
+
+}
+List<Widget> getSnacks(){
+  List<Widget> snacks = [];
+  OrderListProvider(). calculateItemAndNumbers(type: "Snacks")!.forEach((key, value){
+    snacks.add(Buttons(itemname: key, quantity: value.toString()));});
+
+  return snacks;
+
+}
+List<Widget> getmomo(){
+  List<Widget> momo = [];
+  OrderListProvider().calculateItemAndNumbers(type: "Mo:Mo")!.forEach((key, value){
+    momo.add(Buttons(itemname: key, quantity: value.toString()));});
+
+  return momo;
+
 }
 
 
